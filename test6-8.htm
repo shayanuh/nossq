@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:black;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.hidden{
+    display:none;
+}
+.question {
+    margin-left:10%;
+    margin-top:8%;
+    background-color:rgb(231, 227, 227);
+    
+    border-radius:10px;
+    border:none;
+    padding:4%;
+    margin-right:10%;
+    
+}
+input[type=radio] {
+    /* border: 0px;
+    width: 3%;
+    height: 2em; */
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+    margin-right: 1%;
+}
+
+.qindex
+{
+    text-align: justify;
+    margin-left:10%;
+    margin-right:10%;
+    margin-top:5%;
+}
+.qindex input[type=button]
+{
+    text-align: center;
+    padding:1% 2%;
+    border:none;
+    border-radius:5px;
+    width:6.00%;
+    color:black;
+    font-weight: bold;
+    /* background-color:grey; */
+    margin-left:.001%;
+    margin-right:.001%;
+    margin-bottom: 1%;
+}
+.qindex input[type=button]:hover{
+    background-color: black;
+    color:white;
+    
+    
+}
+
+.question input[type=button]:hover{
+    background-color: black;
+}
+.attempted
+{
+    background-color: green;
+}
+.main {
+  margin-left: 20%; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+</style>
+<script>
+    function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 20,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+     {
+
+var clockElement = document.getElementById( "clock" );
+
+function updateClock ( clock ) {
+  clock.innerHTML = new Date().toLocaleTimeString();
+}
+
+setInterval(function () {
+    updateClock( clockElement );
+}, 1000);
+
+};
+};
+
+
+    function Jumptoq(event)
+    {
+        var qno = event.target.value;
+        for(var i = 0 ;i<60;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden")
+    }
+    function next(event)
+    {
+     var qno =event.target.name;
+     for(var i = 0 ;i<60;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden") 
+    }
+    function clears(event)
+    {
+        
+        
+        var qno=parseInt(event.target.name[2])
+        if (event.target.name.length>3)
+        qno=parseInt(event.target.name[2]+event.target.name[3])
+        for(var i =0 ; i<4 ;i++)
+        {
+            document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[qno-1].classList.remove("attempted");
+            document.getElementsByClassName("question")[qno-1].getElementsByTagName("input")[i].checked =false;
+        }
+    }
+    function attempt()
+    {
+        for (var i =0 ;i<60;i++)
+        {
+            var q = document.getElementsByClassName("question")[i];
+            console.log( document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[2])
+            for(var j =0 ;j<4;j ++)
+            {
+                if(q.getElementsByTagName("input")[j].checked === true)
+                {
+                  document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[i].classList.add("attempted");  
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+
+<div class="sidenav" style="color:white;">
+    <h1 style="text-align:center;">NOSSQ 2019</h1>
+    <span id="clock"></span><br>
+    <br><hr>
+    
+  <b style="margin-left:1%">Username : ______ </b>
+  <br><hr>
+  <b style="margin-left:1%">Time Remaining : <span id="time"></span></b>
+  <br><hr>
+  <b style="margin-left:1%">Maximum Marks : 120 <span id="time"></span></b>
+  <br><hr>
+  <h2 style="margin-left:3%;">Instructions</h2>
+  <ul style="font-size:126%;margin-right:1%">
+      <li>This is the preliminary round.</li><br>
+      <li>The duration of the quiz is 20 minutes.</li><br>
+      <li>There are a total of 60 questions </li><br>
+      <li>All questions are compulsary and carry equal weightage.</li><br>
+      <li>All Questions are Multiple Choice with <b>ONLY ONE CORRECT OPTION.</b></li><br>
+      <li> You will be awarded <b>(+2)</b> marks for every correct answer and <b>(-1)</b> mark will be deducted for every incorrect answer</li><br>
+      <li>All your marked responses will be displayed as <input type=button style="width:10%;border:none;border-radius: 5px;background-color: green"> and unmarked responses as <input type=button style="width:10%;border:none;border-radius: 5px;"></li>
+  </ul>
+</div>
+
+<div class="main">
+  <!-- <h1 style="margin-left: 45%;color:rgb(0, 26, 255)">NOSSQ 2019</h1> -->
+    <h3 style="text-align:center;color:black">Screening Round - Junior Category</h3>
+    <h4 style="text-align:center;color:black">(Class 6th-8th)</h4>
+    <form method="POST" action="#" onchange="attempt()">
+        <div class="question " id="Q.1">
+            <b>Q.1 Area of the pitch on which Field Hockey is played is?</b><br><br>
+            <input type="radio" name="q1" value="A" > 5,027 meter<br>
+            <input type="radio" name="q1" value="B"> 54,095.15 feet<br>
+            <input type="radio" name="q1" value="C"> Both of the Above<br>
+            <input type="radio" name="q1" value="D"> None of the above<br>
+            <input type="button" value="Next"  name ="Q.2" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.1" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.2">
+            <b>Q.2 The term ‘Cue’ is related to which sport ?</b><br><br>
+            <input type="radio" name="q2" value="A" > Badminton<br>
+            <input type="radio" name="q2" value="B"> Billiards<br>
+            <input type="radio" name="q2" value="C"> Pool<br>
+            <input type="radio" name="q2" value="D"> Basketball<br>
+            <input type="button" value="Next"  name ="Q.3" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.2" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.3">
+            <b>Q.3 Which of the following countries do not have an international team in cricket ?</b><br><br>
+            <input type="radio" name="q3" value="A" > India<br>
+            <input type="radio" name="q3" value="B"> Pakistan<br>
+            <input type="radio" name="q3" value="C"> Russia<br>
+            <input type="radio" name="q3" value="D"> Ireland<br>
+            <input type="button" value="Next"  name ="Q.4" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.3" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.4">
+            <b>Q.4 Gagan Narang is an Indian ___________, supported by the Olympic Gold 		                	Quest. Fill in the blank with the correct option. ?</b><br><br>
+            <input type="radio" name="q4" value="A" > Swimmer<br>
+            <input type="radio" name="q4" value="B">  Shooter<br>
+            <input type="radio" name="q4" value="C">  Boxer<br>
+            <input type="radio" name="q4" value="D"> Wrestler<br>
+            <input type="button" value="Next"  name ="Q.5" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.4" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.5">
+            <b>Q.5  Famous golfer Vijay Singh  is playing for which country  ?</b><br><br>
+            <input type="radio" name="q5" value="A" >  India<br>
+            <input type="radio" name="q5" value="B"> America<br>
+            <input type="radio" name="q5" value="C"> Fiji<br>
+            <input type="radio" name="q5" value="D"> Britain<br>
+            <input type="button" value="Next"  name ="Q.6" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.5" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.6">
+            <b>Q.6 Sayali Gokhale  is related to which sport  ?</b><br><br>
+            <input type="radio" name="q6" value="A" >Basketball<br>
+            <input type="radio" name="q6" value="B"> Badminton<br>
+            <input type="radio" name="q6" value="C">  Baseball<br>
+            <input type="radio" name="q6" value="D"> Athletics<br>
+            <input type="button" value="Next"  name ="Q.7" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.6" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.7">
+            <b>Q.7 Rafael Nadal belongs to which country ?</b><br><br>
+            <input type="radio" name="q7" value="A" >France<br>
+            <input type="radio" name="q7" value="B">  America<br>
+            <input type="radio" name="q7" value="C">  Spain<br>
+            <input type="radio" name="q7" value="D"> Britain<br>
+            <input type="button" value="Next"  name ="Q.8" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.7" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.8">
+            <b>Q.8 Which of the following is a golf player who leads India in International Events ?</b><br><br>
+            <input type="radio" name="q8" value="A" > Mahesh Bhupathi <br>
+            <input type="radio" name="q8" value="B"> MIlkha Singh<br>
+            <input type="radio" name="q8" value="C">  Jeev Milkha Singh<br>
+            <input type="radio" name="q8" value="D">Pankaj Advani<br>
+            <input type="button" value="Next"  name ="Q.9" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.8" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.9">
+            <b>Q.9  How many gold medals won by India in Olympics till now ?</b><br><br>
+            <input type="radio" name="q9" value="A" > 24<br>
+            <input type="radio" name="q9" value="B"> 26<br>
+            <input type="radio" name="q9" value="C"> 28<br>
+            <input type="radio" name="q9" value="D">30<br>
+            <input type="button" value="Next"  name ="Q.10" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.9" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.10">
+            <b>Q.10 Tennis Court surfaces are made up of : ?</b><br><br>
+            <input type="radio" name="q10" value="A" > Grass <br>
+            <input type="radio" name="q10" value="B"> Synthetic Turf  <br>
+            <input type="radio" name="q10" value="C">  Both of the above<br>
+            <input type="radio" name="q10" value="D"> None of the above<br>
+            <input type="button" value="Next"  name ="Q.11" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.10" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.11">
+            <b>Q.11 First Indian cricket player who took hattrick in International test match ?</b><br><br>
+            <input type="radio" name="q11" value="A" >Kapil Dev <br>
+            <input type="radio" name="q11" value="B">  Anil Kumble<br>
+            <input type="radio" name="q11" value="C">  Jashu Patel<br>
+            <input type="radio" name="q11" value="D">  None of the above<br>
+            <input type="button" value="Next"  name ="Q.12" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.11" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.12">
+            <b>Q.12 Which country did organise Commonwealth Games in 2014 ?</b><br><br>
+            <input type="radio" name="q12" value="A" > Scotland<br>
+            <input type="radio" name="q12" value="B">  India<br>
+            <input type="radio" name="q12" value="C"> Australia<br>
+            <input type="radio" name="q12" value="D"> Canada<br>
+            <input type="button" value="Next"  name ="Q.13" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.12" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.13">
+            <b>Q.13 Which country will organise Commonwealth Games in 2020 ?</b><br><br>
+            <input type="radio" name="q13" value="A" > England1<br>
+            <input type="radio" name="q13" value="B">  Australia<br>
+            <input type="radio" name="q13" value="C">Canada<br>
+            <input type="radio" name="q13" value="D">  None of the above<br>
+            <input type="button" value="Next"  name ="Q.14" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.13" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.14">
+            <b>Q.14 keyeyfdgc aliufhc oauwfhc opauhpfca uquwoaefhc aoewfch ?</b><br><br>
+            <input type="radio" name="q14" value="A" >  Bully<br>
+            <input type="radio" name="q14" value="B"> Smash<br>
+            <input type="radio" name="q14" value="C"> twelfth man<br>
+            <input type="radio" name="q14" value="D"> Sweeper<br>
+            <input type="button" value="Next"  name ="Q.15" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.14" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.15">
+            <b>Q.15 Which term is not related to football ?</b><br><br>
+            <input type="radio" name="q15" value="A" > Dead ball <br>
+            <input type="radio" name="q15" value="B"> Back pass<br>
+            <input type="radio" name="q15" value="C">  Corner Kick<br>
+            <input type="radio" name="q15" value="D"> Bye Ball<br>
+            <input type="button" value="Next"  name ="Q.16" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.15" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.16">
+            <b>Q.16 Famous football player Lionel Messi belongs to which country ?</b><br><br>
+            <input type="radio" name="q16" value="A" > Brazil<br>
+            <input type="radio" name="q16" value="B"> Argentina<br>
+            <input type="radio" name="q16" value="C"> Spain<br>
+            <input type="radio" name="q16" value="D"> Portugal<br>
+            <input type="button" value="Next"  name ="Q.17" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.16" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.17">
+            <b>Q.17 Who is the first person to climb Mount Everest ?</b><br><br>
+            <input type="radio" name="q17" value="A" > Dave Hahn1<br>
+            <input type="radio" name="q17" value="B"> Pasang Lhamu Sherpa<br>
+            <input type="radio" name="q17" value="C">Admund Hillary 3<br>
+            <input type="radio" name="q17" value="D"> Wang Fu Chou<br>
+            <input type="button" value="Next"  name ="Q.18" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.17" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.18">
+            <b>Q.18 Which city has the highest motorable road ?</b><br><br>
+            <input type="radio" name="q18" value="A" >  Ladakh <br>
+            <input type="radio" name="q18" value="B"> Bolivia<br>
+            <input type="radio" name="q18" value="C"> Uttarakhand <br>
+            <input type="radio" name="q18" value="D"> Tibet<br>
+            <input type="button" value="Next"  name ="Q.19" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.18" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.19">
+            <b>Q.19 What is the full form of FIH ?</b><br><br>
+            <input type="radio" name="q19" value="A" >Federation of International Hockey<br>
+            <input type="radio" name="q19" value="B">International Hockey Federation<br>
+            <input type="radio" name="q19" value="C"> Federation of Indian Hockey<br>
+            <input type="radio" name="q19" value="D"> Indian Federation Hockey<br>
+            <input type="button" value="Next"  name ="Q.20" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.19" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.20">
+            <b>Q.20 Where did the Men’s FIFA World Cup 2018 held ?</b><br><br>
+            <input type="radio" name="q20" value="A" >Russia<br>
+            <input type="radio" name="q20" value="B"> Spain<br>
+            <input type="radio" name="q20" value="C"> England <br>
+            <input type="radio" name="q20" value="D"> Portugal<br>
+            <input type="button" value="Next"  name ="Q.21" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.20" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.21">
+            <b>Q.21 Which trophy /cup is related to Lawn Tennis  ?</b><br><br>
+            <input type="radio" name="q21" value="A" >  FIFA Cup<br>
+            <input type="radio" name="q21" value="B"> Champions Trophy<br>
+            <input type="radio" name="q21" value="C"> Ranji Trophy<br>
+            <input type="radio" name="q21" value="D">  Davis Cup<br>
+            <input type="button" value="Next"  name ="Q.22" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.21" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.22">
+            <b>Q.22 Who is the first person to win first Indian Grand Pre Formula One Car Race ?</b><br><br>
+            <input type="radio" name="q22" value="A" > Adrian Sutil<br>
+            <input type="radio" name="q22" value="B"> Narain Karthikeyan<br>
+            <input type="radio" name="q22" value="C"> Jason Batton<br>
+            <input type="radio" name="q22" value="D">  None<br>
+            <input type="button" value="Next"  name ="Q.23" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.22" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.23">
+            <b>Q.23 In Cricket, when a ball passes without touching bat or batsman, then the run which is taken at that ball is known as ?</b><br><br>
+            <input type="radio" name="q23" value="A" >  Drive<br>
+            <input type="radio" name="q23" value="B"> Leg Bye<br>
+            <input type="radio" name="q23" value="C">Bye<br>
+            <input type="radio" name="q23" value="D">Bouncer<br>
+            <input type="button" value="Next"  name ="Q.24" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.23" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.24">
+            <b>Q.24 Who is known as flying sikh ?</b><br><br>
+            <input type="radio" name="q24" value="A" >Mohinder Singh<br>
+            <input type="radio" name="q24" value="B"> Ajit Pal Singh<br>
+            <input type="radio" name="q24" value="C"> Joginder Singh 3<br>
+            <input type="radio" name="q24" value="D">  Milkha Singh<br>
+            <input type="button" value="Next"  name ="Q.25" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.24" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.25">
+            <b>Q.25 Euro Cup  is related to which sport ?</b><br><br>
+            <input type="radio" name="q25" value="A" > Hockey<br>
+            <input type="radio" name="q25" value="B"> Football<br>
+            <input type="radio" name="q25" value="C">  Rugby<br>
+            <input type="radio" name="q25" value="D">  Cricket<br>
+            <input type="button" value="Next"  name ="Q.26" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.25" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.26">
+            <b>Q.26 Bhagyashree Thipsay is playing which sport ?</b><br><br>
+            <input type="radio" name="q26" value="A" > Badminton 1<br>
+            <input type="radio" name="q26" value="B"> Chess<br>
+            <input type="radio" name="q26" value="C">Shooting <br>
+            <input type="radio" name="q26" value="D">  None <br>
+            <input type="button" value="Next"  name ="Q.27" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.26" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.27">
+            <b>Q.27 Which of the following is not the player of Badminton ?</b><br><br>
+            <input type="radio" name="q27" value="A" >Viswanathan Anand <br>
+            <input type="radio" name="q27" value="B"> Nandu Natekar<br>
+            <input type="radio" name="q27" value="C"> Syed Modi<br>
+            <input type="radio" name="q27" value="D">Deepu Ghosh<br>
+            <input type="button" value="Next"  name ="Q.28" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.27" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.28">
+            <b>Q.28 How many holes are there in a golf course ?</b><br><br>
+            <input type="radio" name="q28" value="A" > 16<br>
+            <input type="radio" name="q28" value="B"> 18<br>
+            <input type="radio" name="q28" value="C"> 20<br>
+            <input type="radio" name="q28" value="D"> 22<br>
+            <input type="button" value="Next"  name ="Q.29" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.28" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.29">
+            <b>Q.29 What is the length of a cricket bat ?</b><br><br>
+            <input type="radio" name="q29" value="A" >  38 inches<br>
+            <input type="radio" name="q29" value="B"> 39 inches<br>
+            <input type="radio" name="q29" value="C"> 37 inches<br>
+            <input type="radio" name="q29" value="D"> 40 inches<br>
+            <input type="button" value="Next"  name ="Q.30" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.29" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.30">
+            <b>Q.30 Test series between England and Australia is known as ?</b><br><br>
+            <input type="radio" name="q30" value="A" >Heroes<br>
+            <input type="radio" name="q30" value="B">  Ashes Harkin<br>
+            <input type="radio" name="q30" value="C">  Ashes <br>
+            <input type="radio" name="q30" value="D">None<br>
+            <input type="button" value="Next"  name ="Q.31" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.30" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.31">
+            <b>Q.31 Which of the following is not a swimming style ?</b><br><br>
+            <input type="radio" name="q31" value="A" >Free Style<br>
+            <input type="radio" name="q31" value="B"> Backstroke<br>
+            <input type="radio" name="q31" value="C">Front Stroke <br>
+            <input type="radio" name="q31" value="D">Butterfly<br>
+            <input type="button" value="Next"  name ="Q.32" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.31" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.32">
+            <b>Q.32  FIFA headquarters are located in ?</b><br><br>
+            <input type="radio" name="q32" value="A" > Spain<br>
+            <input type="radio" name="q32" value="B">Zurich<br>
+            <input type="radio" name="q32" value="C"> Britain <br>
+            <input type="radio" name="q32" value="D"> None br>
+            <input type="button" value="Next"  name ="Q.33" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.32" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.33">
+            <b>Q.33 Who is the first Indian Medal Winner in Rio 2016 ?</b><br><br>
+            <input type="radio" name="q33" value="A" > Sushil Kumar<br>
+            <input type="radio" name="q33" value="B"> Gagan Narang<br>
+            <input type="radio" name="q33" value="C"> Sakshi Malik<br>
+            <input type="radio" name="q33" value="D"> Mary Kom <br>
+            <input type="button" value="Next"  name ="Q.34" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.33" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.34">
+            <b>Q.34  Winner of Women’s Singles Wimbledon 2019 was ?</b><br><br>
+            <input type="radio" name="q34" value="A" > Petra Quitova<br>
+            <input type="radio" name="q34" value="B">Serena Williams<br>
+            <input type="radio" name="q34" value="C"> Simona Halep <br>
+            <input type="radio" name="q34" value="D">  Naomi Osaka<br>
+            <input type="button" value="Next"  name ="Q.35" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.34" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.35">
+            <b>Q.35 Who is called blade runner ?</b><br><br>
+            <input type="radio" name="q35" value="A" > Usain Bolt <br>
+            <input type="radio" name="q35" value="B"> Milkha Singh <br>
+            <input type="radio" name="q35" value="C">Steve Mullings<br>
+            <input type="radio" name="q35" value="D">  None<br>
+            <input type="button" value="Next"  name ="Q.36" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.35" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.36">
+            <b>Q.36 Shiva Thapa is associated with which sport ?</b><br><br>
+            <input type="radio" name="q36" value="A" > Athletics <br>
+            <input type="radio" name="q36" value="B">  Boxing<br>
+            <input type="radio" name="q36" value="C">Swimming<br>
+            <input type="radio" name="q36" value="D">None<br>
+            <input type="button" value="Next"  name ="Q.37" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.36" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.37">
+            <b>Q.37 Who won EURO CUP 2016 ?</b><br><br>
+            <input type="radio" name="q37" value="A" >Argentina<br>
+            <input type="radio" name="q37" value="B"> Portugal<br>
+            <input type="radio" name="q37" value="C">  Spain<br>
+            <input type="radio" name="q37" value="D"> None <br>
+            <input type="button" value="Next"  name ="Q.38" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.37" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.38">
+            <b>Q.38 CK Naidu trophy is associated with which sport ?</b><br><br>
+            <input type="radio" name="q38" value="A" > Hockey<br>
+            <input type="radio" name="q38" value="B">Football<br>
+            <input type="radio" name="q38" value="C"> Cricket <br>
+            <input type="radio" name="q38" value="D"> None <br>
+            <input type="button" value="Next"  name ="Q.39" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.38" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.39">
+            <b>Q.39 When were the first commonwealth games held ?</b><br><br>
+            <input type="radio" name="q39" value="A" > 1930<br>
+            <input type="radio" name="q39" value="B"> 1935<br>
+            <input type="radio" name="q39" value="C">1942<br>
+            <input type="radio" name="q39" value="D"> 1947<br>
+            <input type="button" value="Next"  name ="Q.40" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.39" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.40">
+            <b>Q.40 Which of the following is Rajiv Gandhi Khel Ratan Awardee ?</b><br><br>
+            <input type="radio" name="q40" value="A" >  Mary Kom<br>
+            <input type="radio" name="q40" value="B"> Vijender Singh<br>
+            <input type="radio" name="q40" value="C"> Both of the above<br>
+            <input type="radio" name="q40" value="D">None of the above<br>
+            <input type="button" value="Next"  name ="Q.41" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.40" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div> 
+        <div class="question hidden" id="Q.41">
+            <b>Q.41 Which country is the winner of Women’s FIFA World Cup 2019?</b><br><br>
+            <input type="radio" name="q41" value="A" > USA <br>
+            <input type="radio" name="q41" value="B"> France <br>
+            <input type="radio" name="q41" value="C"> Germany <br>
+            <input type="radio" name="q41" value="D"> England <br>
+            <input type="button" value="Next"  name ="Q.42" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.41" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.42">
+            <b>Q.42 Who was the head coach of Indian Cricket Team when they won the 2011 World Cup?</b><br><br>
+            <input type="radio" name="q42" value="A" > Anil Kumble<br>
+            <input type="radio" name="q42" value="B"> Ravi Shastri<br>
+            <input type="radio" name="q42" value="C"> Gary Kidtern<br>
+            <input type="radio" name="q42" value="D"> Duncan Fletcher<br>
+            <input type="button" value="Next"  name ="Q.43" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.42" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.43">
+            <b>Q.43 Who was the winner of Wimbledon 2019 Men’s Singles Championship ?</b><br><br>
+            <input type="radio" name="q43" value="A" > Andy Murray<br>
+            <input type="radio" name="q43" value="B"> Roger Federer<br>
+            <input type="radio" name="q43" value="C"> Rafael Nadal<br>
+            <input type="radio" name="q43" value="D"> Novak Djokovic<br>
+            <input type="button" value="Next"  name ="Q.44" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.43" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.44">
+            <b>Q.44 Which country is the winner of Copa America 2019 football cup ?</b><br><br>
+            <input type="radio" name="q44" value="A" > Brazil<br>
+            <input type="radio" name="q44" value="B"> Argentina<br>
+            <input type="radio" name="q44" value="C"> Germany<br>
+            <input type="radio" name="q44" value="D"> England<br>
+            <input type="button" value="Next"  name ="Q.45" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.44" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.45">
+            <b>Q.45 Which sport is the famous sportsperson of India ‘Neeraj Chopra’ related to ?</b><br><br>
+            <input type="radio" name="q45" value="A" > Shooting<br>
+            <input type="radio" name="q45" value="B"> Billiards<br>
+            <input type="radio" name="q45" value="C"> Javelin Throw<br>
+            <input type="radio" name="q45" value="D"> None of the above<br>
+            <input type="button" value="Next"  name ="Q.46" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.45" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.46">
+            <b>Q.46 Which famous Indian Sportsperson is nicknamed as ‘Dhing Express ?</b><br><br>
+            <input type="radio" name="q46" value="A" > Somdev Devaraman<br>
+            <input type="radio" name="q46" value="B"> Zaheer Khan<br>
+            <input type="radio" name="q46" value="C"> Mohammed Anas<br>
+            <input type="radio" name="q46" value="D"> Hima Das<br>
+            <input type="button" value="Next"  name ="Q.47" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.46" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.47">
+            <b>Q.47 Who was the first Indian to win an individual gold medal at Olympics ?</b><br><br>
+            <input type="radio" name="q47" value="A" > Gagan Narang<br>
+            <input type="radio" name="q47" value="B"> Abhinav Bhindra<br>
+            <input type="radio" name="q47" value="C"> Sania Nehwal<br>
+            <input type="radio" name="q47" value="D"> Rajyavardhan Singh Rathore<br>
+            <input type="button" value="Next"  name ="Q.48" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.47" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.48">
+            <b>Q.48 Who was the first batsman in Modern Era to score a double century in ODIs ?</b><br><br>
+            <input type="radio" name="q48" value="A" > Chris Gayle<br>
+            <input type="radio" name="q48" value="B"> Rohit Sharma<br>
+            <input type="radio" name="q48" value="C"> Virendra Sehwag<br>
+            <input type="radio" name="q48" value="D"> None of the above<br>
+            <input type="button" value="Next"  name ="Q.49" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.48" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<div class="question hidden" id="Q.49">
+            <b>Q.49 Which bowler took most wickets in IPL 2019 ?</b><br><br>
+            <input type="radio" name="q49" value="A" > Yuzvendra Chahal<br>
+            <input type="radio" name="q49" value="B"> Imran Tahir<br>
+            <input type="radio" name="q49" value="C"> Kagiso Rabada<br>
+            <input type="radio" name="q49" value="D"> Mohammad Shami<br>
+            <input type="button" value="Next"  name ="Q.50" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.49" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+
+        </div>
+
+<div class="question hidden" id="Q.50">
+            <b>Q.50 Who was the top scorer of IPL 2019?</b><br><br>
+            <input type="radio" name="q50" value="A" > David Warner<br>
+            <input type="radio" name="q50" value="B"> Jonny Bairstow<br>
+            <input type="radio" name="q50" value="C"> Andre Russell<br>
+            <input type="radio" name="q50" value="D"> KL Rahul<br>
+            <input type="button" value="Next"  name ="Q.51" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.50" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<div class="question hidden" id="Q.51">
+            <b>Q.51 Who scored most goals in FIFA World Cup 2018 ?</b><br><br>
+            <input type="radio" name="q51" value="A" > Cristiano Ronaldo<br>
+            <input type="radio" name="q51" value="B"> Antoinne Griezmann<br>
+            <input type="radio" name="q51" value="C"> Lionel Messi<br>
+            <input type="radio" name="q51" value="D"> None of these<br>
+            <input type="button" value="Next"  name ="Q.52" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.51" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+<div class="question hidden" id="Q.52">
+            <b>Q.52 Which pacer has most wickets in Test cricket ?</b><br><br>
+            <input type="radio" name="q52" value="A" > Zaheer Khan<br>
+            <input type="radio" name="q52" value="B"> Ashwin<br>
+            <input type="radio" name="q52" value="C"> James Anderson<br>
+            <input type="radio" name="q52" value="D"> Brett Lee<br>
+            <input type="button" value="Next"  name ="Q.53" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.52" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+<div class="question hidden" id="Q.53">
+            <b>Q.53 Dutee Chand recently was in news. She is associated with which of the following sports?</b><br><br>
+            <input type="radio" name="q53" value="A" > Table Tennis<br>
+            <input type="radio" name="q53" value="B"> Tennis<br>
+            <input type="radio" name="q53" value="C"> Badminton<br>
+            <input type="radio" name="q53" value="D"> Athlete<br>
+            <input type="button" value="Next"  name ="Q.54" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.53" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<div class="question hidden" id="Q.54">
+            <b>Q.54 Which indian cricketer did the miracle by making a century in 20 balls in T-20 match ?</b><br><br>
+            <input type="radio" name="q54" value="A" > Rishabh Pant<br>
+            <input type="radio" name="q54" value="B"> Shubhmanya Das<br>
+            <input type="radio" name="q54" value="C"> Wriddhiman Saha<br>
+            <input type="radio" name="q54" value="D"> Hardik Pandya<br>
+            <input type="button" value="Next"  name ="Q.55" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.54" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+<div class="question hidden" id="Q.55">
+<b>Q.55 Which mens tennis player has won the maximum number of grand slams in modern era?</b><br><br>
+            <input type="radio" name="q55" value="A" > Novak Djokovic<br>
+            <input type="radio" name="q55" value="B"> Roger Federer<br>
+            <input type="radio" name="q55" value="C"> Rafal Nadal<br>
+            <input type="radio" name="q55" value="D"> Dominic Thiem<br>
+            <input type="button" value="Next"  name ="Q.56" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.55" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<div class="question hidden" id="Q.56">
+            <b>Q.56 Who is the man of match of the final of CWC19?</b><br><br>
+            <input type="radio" name="q56" value="A" >  Ben Stokes<br>
+            <input type="radio" name="q56" value="B">  Trent Boult <br>
+            <input type="radio" name="q56" value="C">Kane Williamson<br>
+            <input type="radio" name="q56" value="D">Aaron Finch<br>
+            <input type="button" value="Next"  name ="Q.57" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.56" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+<div class="question hidden" id="Q.57">
+            <b>Q.57 Real Madrid became the first team to retain the Champions League. Who were the first to retain the European Cup ?</b><br><br>
+            <input type="radio" name="q57" value="A" > Nottingham Forest<br>
+            <input type="radio" name="q57" value="B"> Real Madrid<br>
+            <input type="radio" name="q57" value="C"> Liverpool<br>
+            <input type="radio" name="q57" value="D"> Celtic<br>
+            <input type="button" value="Next"  name ="Q.58" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.57" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+<div class="question hidden" id="Q.58">
+     <b>Q.58 Who amongst the following is the Indian player to make fastest century in the T20?   </b><br><br>
+            <input type="radio" name="q58" value="A" >Rohit Sharma <br>
+            <input type="radio" name="q58" value="B">Rishabh Pant <br>
+            <input type="radio" name="q58" value="C">Yusuf Pathan  <br>
+            <input type="radio" name="q58" value="D">K.L. Rahul <br>
+            <input type="button" value="Next"  name ="Q.59" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.58" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+<div class="question hidden" id="Q.59">
+            <b>Q.59 Apurvi Chandela is related to which of the following sports?  ?</b><br><br>
+            <input type="radio" name="q59" value="A" > Tennis <br>
+            <input type="radio" name="q59" value="B">Chess  <br>
+            <input type="radio" name="q59" value="C">Shooting <br>
+            <input type="radio" name="q59" value="D">Boxing <br>
+            <input type="button" value="Next"  name ="Q.60" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.59" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+<div class="question hidden" id="Q.60">
+            <b>Q.60 'Dunk Shot' is related to which game ? </b><br><br>
+            <input type="radio" name="q60" value="A" > Hockey<br>
+            <input type="radio" name="q60" value="B"> Football<br>
+            <input type="radio" name="q60" value="C"> Softball<br>
+            <input type="radio" name="q60" value="D"> Basketball<br>
+            
+            <input type="button" value="Clear Response" name ="Q.60" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="qindex">
+            <input type="button" value="Q.1" onclick="Jumptoq(event)">
+            <input type="button" value="Q.2" onclick="Jumptoq(event)">
+            <input type="button" value="Q.3" onclick="Jumptoq(event)">
+            <input type="button" value="Q.4" onclick="Jumptoq(event)">
+            <input type="button" value="Q.5" onclick="Jumptoq(event)">
+            <input type="button" value="Q.6" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.7" onclick="Jumptoq(event)">
+            <input type="button" value="Q.8" onclick="Jumptoq(event)">
+            <input type="button" value="Q.9" onclick="Jumptoq(event)">
+            <input type="button" value="Q.10" onclick="Jumptoq(event)">
+            <input type="button" value="Q.11" onclick="Jumptoq(event)">
+            <input type="button" value="Q.12" onclick="Jumptoq(event)">
+            <input type="button" value="Q.13" onclick="Jumptoq(event)">
+            <input type="button" value="Q.14" onclick="Jumptoq(event)">
+            <input type="button" value="Q.15" onclick="Jumptoq(event)">
+            <input type="button" value="Q.16" onclick="Jumptoq(event)">
+            <input type="button" value="Q.17" onclick="Jumptoq(event)">
+            <input type="button" value="Q.18" onclick="Jumptoq(event)">
+            <input type="button" value="Q.19" onclick="Jumptoq(event)">
+            <input type="button" value="Q.20" onclick="Jumptoq(event)">
+            <input type="button" value="Q.21" onclick="Jumptoq(event)">
+            <input type="button" value="Q.22" onclick="Jumptoq(event)">
+            <input type="button" value="Q.23" onclick="Jumptoq(event)">
+            <input type="button" value="Q.24" onclick="Jumptoq(event)">
+            <input type="button" value="Q.25" onclick="Jumptoq(event)">
+            <input type="button" value="Q.26" onclick="Jumptoq(event)">
+            <input type="button" value="Q.27" onclick="Jumptoq(event)">
+            <input type="button" value="Q.28" onclick="Jumptoq(event)">
+            <input type="button" value="Q.29" onclick="Jumptoq(event)">
+            <input type="button" value="Q.30" onclick="Jumptoq(event)">
+            <input type="button" value="Q.31" onclick="Jumptoq(event)">
+            <input type="button" value="Q.32" onclick="Jumptoq(event)">
+            <input type="button" value="Q.33" onclick="Jumptoq(event)">
+            <input type="button" value="Q.34" onclick="Jumptoq(event)">
+            <input type="button" value="Q.35" onclick="Jumptoq(event)">
+            <input type="button" value="Q.36" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.37" onclick="Jumptoq(event)">
+            <input type="button" value="Q.38" onclick="Jumptoq(event)">
+            <input type="button" value="Q.39" onclick="Jumptoq(event)">
+            <input type="button" value="Q.40" onclick="Jumptoq(event)">
+            <input type="button" value="Q.41" onclick="Jumptoq(event)">
+            <input type="button" value="Q.42" onclick="Jumptoq(event)">
+            <input type="button" value="Q.43" onclick="Jumptoq(event)">
+            <input type="button" value="Q.44" onclick="Jumptoq(event)">
+            <input type="button" value="Q.45" onclick="Jumptoq(event)">
+            <input type="button" value="Q.46" onclick="Jumptoq(event)">
+            <input type="button" value="Q.47" onclick="Jumptoq(event)">
+            <input type="button" value="Q.48" onclick="Jumptoq(event)">
+            <input type="button" value="Q.49" onclick="Jumptoq(event)">
+            <input type="button" value="Q.50" onclick="Jumptoq(event)">
+            <input type="button" value="Q.51" onclick="Jumptoq(event)">
+            <input type="button" value="Q.52" onclick="Jumptoq(event)">
+            <input type="button" value="Q.53" onclick="Jumptoq(event)">
+            <input type="button" value="Q.54" onclick="Jumptoq(event)">
+            <input type="button" value="Q.55" onclick="Jumptoq(event)">
+            <input type="button" value="Q.56" onclick="Jumptoq(event)">
+            <input type="button" value="Q.57" onclick="Jumptoq(event)">
+            <input type="button" value="Q.58" onclick="Jumptoq(event)">
+            <input type="button" value="Q.59" onclick="Jumptoq(event)">
+            <input type="button" value="Q.60" onclick="Jumptoq(event)">
+        </div>
+        <div style="text-align: center;margin-top:3%"><input type="submit" value="Submit" style="margin-left:1%;text-align:center;align-self: center;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color:black;"></div>
+        
+    </form>
+</div>
+   
+</body>
+</html> 
