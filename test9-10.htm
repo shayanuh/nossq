@@ -114,7 +114,7 @@ input[type=radio] {
         if (diff <= 0) {
             // add one second so that the count down starts at the full duration
             // example 05:00 not 04:59
-            start = Date.now() + 1000;
+            document.getElementById("form").submit()
         }
     };
     // we don't want to wait a full second before the timer starts
@@ -219,7 +219,7 @@ setInterval(function () {
   <!-- <h1 style="margin-left: 45%;color:rgb(0, 26, 255)">NOSSQ 2019</h1> -->
     <h3 style="text-align:center;color:black">Screening Round - Intermediate Category</h3>
     <h4 style="text-align:center;color:black">(Class 9th-10th)</h4>
-    <form method="POST" action="#" onchange="attempt()">
+    <form method="POST" action="/" id="form" onchange="attempt()">
         <div class="question " id="Q.1">
             <b>Q.1 Which country is the winner of Women’s FIFA World Cup 2019?</b><br><br>
             <input type="radio" name="q1" value="A" > USA <br>
